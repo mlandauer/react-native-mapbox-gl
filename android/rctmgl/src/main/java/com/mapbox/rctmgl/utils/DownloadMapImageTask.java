@@ -9,6 +9,7 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.WeakHashMap;
 
 /**
  * Created by nickitaliano on 9/13/17.
@@ -26,18 +27,8 @@ public class DownloadMapImageTask extends AsyncTask<Void, Void, Bitmap> {
     }
 
     @Override
-    protected Bitmap doInBackground(Void... _) {
-        Bitmap bitmap = null;
-
-        try {
-            InputStream bitmapStream = new URL(mURL).openStream();
-            bitmap = BitmapFactory.decodeStream(bitmapStream);
-            bitmapStream.close();
-        } catch (Exception e) {
-            Log.w(LOG_TAG, e.getLocalizedMessage());
-        }
-
-        return bitmap;
+    protected Bitmap doInBackground(Void... params) {
+        return BitmapUtils.getBitmapFromURL(mURL);
     }
 
     @Override
